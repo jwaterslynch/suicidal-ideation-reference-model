@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "suicidal-ideation-reference-model"
+version = "0.1.0"
+description = "Open-source reference model for suicidal-ideation prediction and local validation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Julian Waters-Lynch" }
+]
+keywords = [
+  "suicidal ideation",
+  "suicide prediction",
+  "machine learning",
+  "model governance",
+  "mental health"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "joblib>=1.5",
+  "numpy>=1.23",
+  "pandas>=2.0",
+  "scikit-learn>=1.7,<1.9",
+  "xgboost>=3.0",
+]
+
+[project.urls]
+Homepage = "https://julianwaterslynch.com/tools.html"
+Repository = "https://github.com/jwaterslynch/suicidal-ideation-reference-model"
+Paper-Replication = "https://github.com/jwaterslynch/Workplace-SI-ML-Pipeline"
+OSF = "https://osf.io/mj2kr/"
+
+[project.scripts]
+si-risk-score = "suicidal_ideation_reference_model.cli:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+suicidal_ideation_reference_model = ["artifacts/*.joblib", "artifacts/*.json"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"

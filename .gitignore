@@ -1,0 +1,14 @@
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+.DS_Store
+.ruff_cache/
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+predictions.csv
+local_*.csv
+local_*.json
