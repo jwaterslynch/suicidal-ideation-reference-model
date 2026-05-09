@@ -3,8 +3,8 @@
 ## Model Details
 
 - Name: Suicidal Ideation Reference Model
-- Version: 0.1.0
-- Default artifact: `si_xgb_full_2020_v0_1_0.joblib`
+- Version: 0.1.1
+- Default artifact: `si_xgb_full_2020_v0_1_1.joblib`
 - Model type: calibrated XGBoost classifier
 - Training data: 2020 NSDUH public-use data, employed-adult analytic sample
 - Target: past-year suicidal ideation as coded in the source survey pipeline
@@ -36,6 +36,8 @@ The model uses:
 The packaged reference artifact follows the paper's 2020 full-model setup:
 
 - Employed-adult filter.
+- Extended NSDUH work-hours sentinel values (`985`, `989`, `994`, `997`,
+  `998`, `999`) recoded to missing before fitting.
 - 70/30 stratified train-test split.
 - Random seed 42.
 - Median imputation.
@@ -55,21 +57,23 @@ Packaged holdout validation:
 | Test positive cases | 206 |
 | Test prevalence | 5.51% |
 | Test AUC | 0.872 |
-| Test Brier score | 0.0437 |
+| Test Brier score | 0.0438 |
 
 High-specificity reference operating point:
 
 | Quantity | Value |
 |---|---:|
 | Threshold | 0.17 |
-| Sensitivity | 0.510 |
+| Sensitivity | 0.529 |
 | Specificity | 0.928 |
-| PPV | 0.292 |
-| NPV | 0.970 |
-| TP / FP / FN / TN | 105 / 254 / 101 / 3,278 |
+| PPV | 0.301 |
+| NPV | 0.971 |
+| TP / FP / FN / TN | 109 / 253 / 97 / 3,279 |
 
-The training-fold F1-selected threshold was 0.231. On the heldout test split it
-produced sensitivity 0.379 and specificity 0.958.
+The training-fold F1-selected threshold was 0.249. On the heldout test split it
+produced sensitivity 0.316 and specificity 0.967. This threshold was selected
+on the training predictions and should be treated as descriptive, not as a
+portable operating point.
 
 These metrics describe performance in the source holdout split. They do not
 establish performance in other populations, countries, workplaces, clinical
@@ -80,6 +84,7 @@ settings, or time periods.
 - Outcome is suicidal ideation, not suicide attempt, death, or imminent risk.
 - Data are U.S. survey data and may not transfer to other contexts.
 - Several inputs are sensitive or proxy-sensitive.
+- The `age` input uses NSDUH 2020 categorical age codes, not raw age in years.
 - The model should be recalibrated and validated locally before any applied use.
 - Retrospective discrimination is not evidence of clinical utility.
 - The model may perform differently across subgroups and over time.

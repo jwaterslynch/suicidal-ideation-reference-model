@@ -3,6 +3,7 @@
 ## Before Public Release
 
 - [ ] Confirm the artifact was generated from the intended reproduction commit.
+- [ ] Confirm NSDUH extended sentinel values are handled as documented.
 - [ ] Confirm no raw NSDUH files or identifiable data are included.
 - [ ] Confirm the example CSV is synthetic.
 - [ ] Run the package tests.
@@ -18,6 +19,7 @@
 - [ ] Create `jwaterslynch/suicidal-ideation-reference-model`.
 - [ ] Push initial release.
 - [ ] Tag `v0.1.0`.
+- [ ] For hardening releases, tag the updated release, for example `v0.1.1`.
 - [ ] Confirm GitHub citation panel is populated.
 - [ ] Add repository link to `julianwaterslynch.com/tools.html`.
 

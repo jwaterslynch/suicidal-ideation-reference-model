@@ -9,6 +9,7 @@ Report:
 - Data source, population, and inclusion criteria.
 - How each local variable was mapped to the expected feature schema.
 - Missingness by feature.
+- Distribution of `si_n_missing` after scoring.
 - Outcome definition and how it differs from NSDUH past-year suicidal ideation.
 - Sample size, outcome prevalence, and observation period.
 - AUC, precision-recall curve, Brier score, calibration intercept, and

@@ -5,10 +5,12 @@ import argparse
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 
 import joblib
 import numpy as np
 import pandas as pd
+import sklearn
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import (
@@ -20,8 +22,14 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+import xgboost
 from xgboost import XGBClassifier
 
+MODEL_ID = "si_xgb_full_2020_v0_1_1"
+MODEL_VERSION = "0.1.1"
+ARTIFACT_FILE = f"{MODEL_ID}.joblib"
+METADATA_FILE = f"{MODEL_ID}.metadata.json"
+EXTENDED_NSDUH_SKIP_CODES = {985, 989, 994, 997, 998, 999}
 FEATURES = [
     "k6_score",
     "male",
@@ -66,6 +74,18 @@ def operating_point(y_true, probabilities, threshold: float) -> dict:
     }
 
 
+def git_commit(path: Path) -> str | None:
+    result = subprocess.run(
+        ["git", "-C", str(path), "rev-parse", "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip()
+
+
 def build_reference_model(source_repo: Path, output_dir: Path) -> dict:
     source_repo = source_repo.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -83,6 +103,10 @@ def build_reference_model(source_repo: Path, output_dir: Path) -> dict:
     clean = si_pipeline.load_and_clean_year(2020, source_repo / "data", mapping)
     if si_pipeline.EMPLOYMENT_FILTER and "employment" in clean.columns:
         clean = clean[clean["employment"] == 1].copy()
+    if "work_hours" in clean.columns:
+        clean.loc[
+            clean["work_hours"].isin(EXTENDED_NSDUH_SKIP_CODES), "work_hours"
+        ] = np.nan
 
     X = clean[FEATURES]
     y = clean["suicide"]
@@ -132,11 +156,12 @@ def build_reference_model(source_repo: Path, output_dir: Path) -> dict:
         key=lambda d: abs(d["specificity"] - 0.93),
     )
     metadata = {
-        "model_id": "si_xgb_full_2020_v0_1_0",
-        "version": "0.1.0",
-        "artifact_file": "si_xgb_full_2020_v0_1_0.joblib",
+        "model_id": MODEL_ID,
+        "version": MODEL_VERSION,
+        "artifact_file": ARTIFACT_FILE,
         "model_type": "Calibrated XGBoost classifier",
         "source_repository": "https://github.com/jwaterslynch/Workplace-SI-ML-Pipeline",
+        "source_repository_commit": git_commit(source_repo),
         "training_data": "NSDUH 2020 public-use data, employed-adult analytic sample",
         "outcome": "Past-year suicidal ideation as coded in the paper reproduction pipeline",
         "features": FEATURES,
@@ -158,6 +183,17 @@ def build_reference_model(source_repo: Path, output_dir: Path) -> dict:
         "preprocessing": {
             "imputer": 'SimpleImputer(strategy="median") fitted on training split',
             "scaler": "StandardScaler fitted after median imputation on training split",
+            "work_hours": (
+                "NSDUH extended missing/sentinel codes "
+                f"{sorted(EXTENDED_NSDUH_SKIP_CODES)} recoded to NaN before fitting"
+            ),
+        },
+        "fit_environment": {
+            "python_package_versions": {
+                "pandas": pd.__version__,
+                "scikit_learn": sklearn.__version__,
+                "xgboost": xgboost.__version__,
+            },
         },
         "classifier_params": {
             "max_depth": 3,
@@ -173,9 +209,7 @@ def build_reference_model(source_repo: Path, output_dir: Path) -> dict:
     }
     bundle = {"pipeline": pipeline, "features": FEATURES, "metadata": metadata}
     joblib.dump(bundle, output_dir / metadata["artifact_file"])
-    (output_dir / "si_xgb_full_2020_v0_1_0.metadata.json").write_text(
-        json.dumps(metadata, indent=2)
-    )
+    (output_dir / METADATA_FILE).write_text(json.dumps(metadata, indent=2))
     return metadata
 
 
@@ -184,8 +218,11 @@ def main() -> None:
     parser.add_argument(
         "--source-repo",
         type=Path,
-        default=Path("../../Research/suicidal_ideation_pipeline"),
-        help="Path to the paper reproduction repository.",
+        required=True,
+        help=(
+            "Path to the public paper reproduction repository "
+            "(https://github.com/jwaterslynch/Workplace-SI-ML-Pipeline)."
+        ),
     )
     parser.add_argument(
         "--output-dir",

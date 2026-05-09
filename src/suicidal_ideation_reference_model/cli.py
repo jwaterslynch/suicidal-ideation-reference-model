@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
 from .model import DEFAULT_THRESHOLD, score_csv
 
@@ -46,11 +47,19 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
-    scored = score_csv(
-        args.input_csv,
-        args.output,
-        threshold=args.threshold,
-        model_path=args.model,
-    )
+    try:
+        scored = score_csv(
+            args.input_csv,
+            args.output,
+            threshold=args.threshold,
+            model_path=args.model,
+        )
+    except (FileNotFoundError, OSError, ValueError, TypeError) as exc:
+        print(f"si-risk-score: {exc}", file=sys.stderr)
+        raise SystemExit(2) from exc
     print(BOUNDARY_NOTE)
     print(f"Wrote {len(scored):,} scored rows to {args.output}")
+
+
+if __name__ == "__main__":
+    main()

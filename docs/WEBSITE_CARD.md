@@ -18,13 +18,13 @@ workflows.
 An open-source model-release repository containing a fitted suicidal-ideation
 prediction model, feature schema, CSV scorer, Python API, synthetic examples,
 model card, validation checklist, and governance guidance. It is designed for
-researchers and organizations that want to inspect, test, locally validate, or
-adapt the model rather than start from a closed black box.
+researchers who want to inspect, test, locally validate, or adapt the model
+rather than start from a closed black box.
 
 Built from the machine-learning suicide-prediction paper and separated from the
-paper reproduction repo. The tool supports local validation and governed
-support-oriented prototyping; it is not a clinical diagnostic system or an
-automated employment decision tool.
+paper reproduction repo. The tool supports researcher-led local validation
+studies and methodological prototyping; it is not a clinical diagnostic system,
+an employer screening system, or an automated employment decision tool.
 
 ## Tags
 

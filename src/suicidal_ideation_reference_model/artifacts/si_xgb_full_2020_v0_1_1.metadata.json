@@ -1,9 +1,10 @@
 {
-  "model_id": "si_xgb_full_2020_v0_1_0",
-  "version": "0.1.0",
-  "artifact_file": "si_xgb_full_2020_v0_1_0.joblib",
+  "model_id": "si_xgb_full_2020_v0_1_1",
+  "version": "0.1.1",
+  "artifact_file": "si_xgb_full_2020_v0_1_1.joblib",
   "model_type": "Calibrated XGBoost classifier",
   "source_repository": "https://github.com/jwaterslynch/Workplace-SI-ML-Pipeline",
+  "source_repository_commit": "d2554b65ccfb8097761336fa73654beece06c646",
   "training_data": "NSDUH 2020 public-use data, employed-adult analytic sample",
   "outcome": "Past-year suicidal ideation as coded in the paper reproduction pipeline",
   "features": [
@@ -30,37 +31,45 @@
   "prevalence_train": 0.05504587155963303,
   "prevalence_test": 0.05510968432316747,
   "metrics": {
-    "test_auc": 0.8721309470142609,
-    "test_brier": 0.043676761185726005,
-    "f1_threshold_from_train": 0.23056216101222748,
+    "test_auc": 0.8721151414529021,
+    "test_brier": 0.04383519039812847,
+    "f1_threshold_from_train": 0.24916052093869565,
     "f1_threshold_test_operating_point": {
-      "threshold": 0.23056216101222748,
-      "sensitivity": 0.3786407766990291,
-      "specificity": 0.9578142695356738,
-      "ppv": 0.3436123348017621,
-      "npv": 0.9635431500996867,
-      "tp": 78,
-      "fp": 149,
-      "fn": 128,
-      "tn": 3383,
+      "threshold": 0.24916052093869565,
+      "sensitivity": 0.3155339805825243,
+      "specificity": 0.9665911664779162,
+      "ppv": 0.3551912568306011,
+      "npv": 0.960337552742616,
+      "tp": 65,
+      "fp": 118,
+      "fn": 141,
+      "tn": 3414,
       "n": 3738
     },
     "high_specificity_reference": {
       "threshold": 0.17000000000000004,
-      "sensitivity": 0.5097087378640777,
-      "specificity": 0.9280860702151755,
-      "ppv": 0.2924791086350975,
-      "npv": 0.9701094998520272,
-      "tp": 105,
-      "fp": 254,
-      "fn": 101,
-      "tn": 3278,
+      "sensitivity": 0.529126213592233,
+      "specificity": 0.9283691959229898,
+      "ppv": 0.3011049723756906,
+      "npv": 0.9712677725118484,
+      "tp": 109,
+      "fp": 253,
+      "fn": 97,
+      "tn": 3279,
       "n": 3738
     }
   },
   "preprocessing": {
     "imputer": "SimpleImputer(strategy=\"median\") fitted on training split",
-    "scaler": "StandardScaler fitted after median imputation on training split"
+    "scaler": "StandardScaler fitted after median imputation on training split",
+    "work_hours": "NSDUH extended missing/sentinel codes [985, 989, 994, 997, 998, 999] recoded to NaN before fitting"
+  },
+  "fit_environment": {
+    "python_package_versions": {
+      "pandas": "3.0.2",
+      "scikit_learn": "1.8.0",
+      "xgboost": "3.2.0"
+    }
   },
   "classifier_params": {
     "max_depth": 3,

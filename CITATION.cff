@@ -6,8 +6,8 @@ authors:
   - family-names: Waters-Lynch
     given-names: Julian
     orcid: "https://orcid.org/0000-0002-2422-4864"
-version: "0.1.0"
-date-released: "2026-05-09"
+version: "0.1.1"
+date-released: "2026-05-10"
 license: MIT
 repository-code: "https://github.com/jwaterslynch/suicidal-ideation-reference-model"
 url: "https://github.com/jwaterslynch/suicidal-ideation-reference-model"
