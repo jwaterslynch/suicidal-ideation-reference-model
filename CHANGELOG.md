@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.3 - 2026-05-10
+
+- Hardened the NSDUH 2024 validation downloader with `.partial` file writes,
+  byte-count validation, and SHA-256 checks for the pinned public parquet files.
+- Kept the fitted model artifact and validation metrics unchanged.
+
+## 0.1.2 - 2026-05-10
+
+- Added the reproducible NSDUH 2024 fresh-data validation workflow.
+- Added aggregate 2024 validation reports under `validation/results/`.
+- Documented the 2024 partial-feature caveat for unavailable sexual-orientation
+  variables in the public-use file.
+
 ## 0.1.1 - 2026-05-10
 
 - Rebuilt the packaged artifact after recoding extended NSDUH work-hours

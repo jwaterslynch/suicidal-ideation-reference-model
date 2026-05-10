@@ -117,8 +117,8 @@ The artifact is a dictionary containing:
 - `metadata`: training sample, validation metrics, thresholds, and source
   provenance.
 
-Package version 0.1.2 is a validation-workflow release. The fitted model
-artifact remains the v0.1.1 artifact.
+Package version 0.1.3 is a validation-workflow maintenance release. The fitted
+model artifact remains the v0.1.1 artifact.
 
 ## Validation Snapshot
 
@@ -143,10 +143,12 @@ missing before fitting.
 
 ### Fresh NSDUH 2024 Validation
 
-Version 0.1.2 adds a reproducible fresh-data validation on the 2024 NSDUH
-public-use file. The workflow is in `validation/validate_nsduh_2024.py`, and
-the aggregate report is in `validation/results/nsduh_2024_validation_report.md`.
-The raw public-use parquet files are intentionally not committed.
+Version 0.1.2 added a reproducible fresh-data validation on the 2024 NSDUH
+public-use file. Version 0.1.3 hardens that workflow's downloader with partial
+file handling and SHA-256 validation. The workflow is in
+`validation/validate_nsduh_2024.py`, and the aggregate report is in
+`validation/results/nsduh_2024_validation_report.md`. The raw public-use
+parquet files are intentionally not committed.
 
 The 2024 validation was independently rerun from a fresh environment; the
 Markdown report reproduced byte-for-byte, with only negligible floating-point
@@ -211,7 +213,7 @@ paper or working paper.
   author = {Waters-Lynch, Julian},
   year = {2026},
   url = {https://github.com/jwaterslynch/suicidal-ideation-reference-model},
-  version = {0.1.2}
+  version = {0.1.3}
 }
 ```
 

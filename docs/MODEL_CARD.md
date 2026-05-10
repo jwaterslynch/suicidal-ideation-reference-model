@@ -3,7 +3,7 @@
 ## Model Details
 
 - Name: Suicidal Ideation Reference Model
-- Package version: 0.1.2
+- Package version: 0.1.3
 - Default artifact: `si_xgb_full_2020_v0_1_1.joblib`
 - Artifact version: 0.1.1
 - Model type: calibrated XGBoost classifier
@@ -79,10 +79,12 @@ portable operating point.
 ### Fresh NSDUH 2024 Validation
 
 Version 0.1.2 includes a reproducible fresh-data validation on the 2024 NSDUH
-public-use file. The workflow is in `validation/validate_nsduh_2024.py`; the
-aggregate report is in `validation/results/nsduh_2024_validation_report.md`.
-An independent rerun reproduced the Markdown report byte-for-byte and matched
-JSON metrics to ordinary floating-point tolerance.
+public-use file. Version 0.1.3 keeps the same validation results and hardens the
+download integrity checks. The workflow is in
+`validation/validate_nsduh_2024.py`; the aggregate report is in
+`validation/results/nsduh_2024_validation_report.md`. An independent rerun
+reproduced the Markdown report byte-for-byte and matched JSON metrics to
+ordinary floating-point tolerance.
 
 | Metric | Value |
 |---|---:|

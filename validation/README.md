@@ -2,7 +2,8 @@
 
 This folder contains a lightweight validation workflow for scoring the frozen
 v0.1.1 reference model on a fresh public NSDUH wave. It was added in package
-release v0.1.2.
+release v0.1.2 and hardened in v0.1.3 with partial-file download handling and
+SHA-256 validation.
 
 The raw 2024 parquet files are public data, but they are not committed to this
 repository. They are downloaded into `validation/raw/`, which is ignored by git.
