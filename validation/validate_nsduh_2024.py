@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 from collections.abc import Iterable
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -38,6 +39,16 @@ RAW_DIR = Path("validation/raw")
 RESULTS_DIR = Path("validation/results")
 DATA_PATH = RAW_DIR / "nsduh_2024_data.parquet"
 DICTIONARY_PATH = RAW_DIR / "nsduh_2024_data_dictionary.parquet"
+EXPECTED_DOWNLOADS = {
+    DATA_URL: {
+        "sha256": "95ad20cb919186c304c8b442aa060b279ad61dc29bf252bcb43dfe8274b56e86",
+        "min_bytes": 200 * 1024 * 1024,
+    },
+    DICTIONARY_URL: {
+        "sha256": "ecbecdbf9be2794c5c82ac4b1171e203f393ae2a8a7b6e0d1b44bcd830dedc77",
+        "min_bytes": 10 * 1024,
+    },
+}
 
 SKIP_CODES = {85, 89, 94, 97, 98, 99}
 EXTENDED_SKIP_CODES = {985, 989, 994, 997, 998, 999}
@@ -76,23 +87,75 @@ def content_length(url: str) -> int | None:
     return int(length) if length else None
 
 
-def download_if_needed(url: str, path: Path, *, max_bytes: int) -> None:
-    if path.exists():
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def validate_download(path: Path, url: str, *, expected_length: int | None = None) -> None:
+    size = path.stat().st_size
+    if expected_length is not None and size != expected_length:
+        raise RuntimeError(
+            f"Downloaded {path} is {size:,} bytes; expected {expected_length:,} bytes."
+        )
+    expected = EXPECTED_DOWNLOADS.get(url)
+    if not expected:
         return
+    min_bytes = int(expected["min_bytes"])
+    if size < min_bytes:
+        raise RuntimeError(
+            f"Downloaded {path} is only {size:,} bytes; expected at least {min_bytes:,} bytes."
+        )
+    actual_hash = file_sha256(path)
+    expected_hash = str(expected["sha256"])
+    if actual_hash != expected_hash:
+        raise RuntimeError(
+            f"Downloaded {path} has SHA256 {actual_hash}; expected {expected_hash}."
+        )
+
+
+def download_if_needed(url: str, path: Path, *, max_bytes: int) -> None:
     length = content_length(url)
     if length is not None and length > max_bytes:
         raise RuntimeError(
             f"Refusing to download {url}: {length:,} bytes exceeds "
             f"the configured limit of {max_bytes:,} bytes."
         )
-    path.parent.mkdir(parents=True, exist_ok=True)
-    request = urllib.request.Request(url)
-    with urllib.request.urlopen(request, timeout=120) as response, path.open("wb") as out:
-        while True:
-            chunk = response.read(1024 * 1024)
-            if not chunk:
-                break
-            out.write(chunk)
+    if path.exists():
+        try:
+            validate_download(path, url, expected_length=length)
+            return
+        except RuntimeError:
+            path.unlink()
+    tmp_path = path.with_name(f"{path.name}.partial")
+    if tmp_path.exists():
+        tmp_path.unlink()
+    total = 0
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        request = urllib.request.Request(url)
+        with urllib.request.urlopen(request, timeout=120) as response, tmp_path.open("wb") as out:
+            while True:
+                chunk = response.read(1024 * 1024)
+                if not chunk:
+                    break
+                total += len(chunk)
+                if total > max_bytes:
+                    raise RuntimeError(
+                        f"Refusing to download {url}: exceeded "
+                        f"the configured limit of {max_bytes:,} bytes."
+                    )
+                out.write(chunk)
+        validate_download(tmp_path, url, expected_length=length)
+        tmp_path.replace(path)
+        return
+    except Exception:
+        if tmp_path.exists():
+            tmp_path.unlink()
+        raise
 
 
 def choose_column(columns: set[str], candidates: Iterable[str], label: str) -> str:
