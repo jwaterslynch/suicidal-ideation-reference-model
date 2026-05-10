@@ -10,25 +10,27 @@ Suicidal Ideation Reference Model
 
 ## Short Line
 
-An open reference model for testing and adapting suicidal-ideation prediction
-workflows.
+An open suicidal-ideation reference model with reproduced fresh-year validation
+on NSDUH 2024.
 
 ## Product Description
 
 An open-source model-release repository containing a fitted suicidal-ideation
 prediction model, feature schema, CSV scorer, Python API, synthetic examples,
-model card, validation checklist, and governance guidance. It is designed for
-researchers who want to inspect, test, locally validate, or adapt the model
-rather than start from a closed black box.
+model card, validation checklist, governance guidance, and a reproduced
+fresh-data validation workflow on NSDUH 2024.
 
 Built from the machine-learning suicide-prediction paper and separated from the
 paper reproduction repo. The tool supports researcher-led local validation
 studies and methodological prototyping; it is not a clinical diagnostic system,
-an employer screening system, or an automated employment decision tool.
+an employer screening system, or an automated employment decision tool. The
+2024 validation shows useful temporal transportability (AUC 0.830), but the
+packaged threshold requires local recalibration and one predictor (`lgbtq`) was
+not available in the 2024 public-use file.
 
 ## Tags
 
-Open source - Python - Fitted model - Local validation - Model governance -
+Open source - Python - Fitted model - Fresh-year validation - Model governance -
 Mental-health methods - MIT license
 
 ## Links

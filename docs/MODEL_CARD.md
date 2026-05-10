@@ -3,8 +3,9 @@
 ## Model Details
 
 - Name: Suicidal Ideation Reference Model
-- Version: 0.1.1
+- Package version: 0.1.2
 - Default artifact: `si_xgb_full_2020_v0_1_1.joblib`
+- Artifact version: 0.1.1
 - Model type: calibrated XGBoost classifier
 - Training data: 2020 NSDUH public-use data, employed-adult analytic sample
 - Target: past-year suicidal ideation as coded in the source survey pipeline
@@ -47,7 +48,7 @@ The packaged reference artifact follows the paper's 2020 full-model setup:
 
 ## Validation Metrics
 
-Packaged holdout validation:
+### Packaged 2020 Holdout
 
 | Metric | Value |
 |---|---:|
@@ -75,9 +76,50 @@ produced sensitivity 0.316 and specificity 0.967. This threshold was selected
 on the training predictions and should be treated as descriptive, not as a
 portable operating point.
 
-These metrics describe performance in the source holdout split. They do not
-establish performance in other populations, countries, workplaces, clinical
-settings, or time periods.
+### Fresh NSDUH 2024 Validation
+
+Version 0.1.2 includes a reproducible fresh-data validation on the 2024 NSDUH
+public-use file. The workflow is in `validation/validate_nsduh_2024.py`; the
+aggregate report is in `validation/results/nsduh_2024_validation_report.md`.
+An independent rerun reproduced the Markdown report byte-for-byte and matched
+JSON metrics to ordinary floating-point tolerance.
+
+| Metric | Value |
+|---|---:|
+| Public-use respondents | 58,633 |
+| Employed respondents | 20,781 |
+| Analytic N with valid outcome | 20,588 |
+| Positive cases | 1,292 |
+| Outcome prevalence | 6.28% |
+| Weighted outcome prevalence | 5.00% |
+| AUC | 0.830 |
+| AUPRC | 0.304 |
+| Brier score | 0.0513 |
+| Mean predicted probability | 7.95% |
+| Calibration intercept | -0.342 |
+| Calibration slope | 0.972 |
+
+Operating point at the packaged reference threshold:
+
+| Quantity | Value |
+|---|---:|
+| Threshold | 0.17 |
+| Sensitivity | 0.721 |
+| Specificity | 0.828 |
+| PPV | 0.219 |
+| NPV | 0.978 |
+| Flag rate | 20.65% |
+| Weighted flag rate | 15.96% |
+| TP / FP / FN / TN | 931 / 3,320 / 361 / 15,976 |
+
+The 2024 public-use file used here does not expose a sexual-orientation
+variable, so the `lgbtq` predictor is missing for every scored row and handled
+by the packaged median imputer. Treat this as a partial-feature temporal
+validation.
+
+These metrics describe performance in the source holdout split and one fresh
+NSDUH year. They do not establish performance in other populations, countries,
+workplaces, clinical settings, or future time periods.
 
 ## Limitations
 
@@ -86,6 +128,9 @@ settings, or time periods.
 - Several inputs are sensitive or proxy-sensitive.
 - The `age` input uses NSDUH 2020 categorical age codes, not raw age in years.
 - The model should be recalibrated and validated locally before any applied use.
+- The packaged 0.17 threshold was not portable to NSDUH 2024; it produced a
+  materially higher flag rate and should not be treated as an operational
+  threshold.
 - Retrospective discrimination is not evidence of clinical utility.
 - The model may perform differently across subgroups and over time.
 

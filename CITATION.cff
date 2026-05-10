@@ -6,7 +6,7 @@ authors:
   - family-names: Waters-Lynch
     given-names: Julian
     orcid: "https://orcid.org/0000-0002-2422-4864"
-version: "0.1.1"
+version: "0.1.2"
 date-released: "2026-05-10"
 license: MIT
 repository-code: "https://github.com/jwaterslynch/suicidal-ideation-reference-model"
@@ -14,7 +14,8 @@ url: "https://github.com/jwaterslynch/suicidal-ideation-reference-model"
 abstract: >-
   Open-source reference model and inference package for suicidal-ideation
   prediction in employed adults, including a fitted model artifact, feature
-  schema, local-validation guidance, and governance documentation.
+  schema, fresh-year validation workflow, local-validation guidance, and
+  governance documentation.
 keywords:
   - suicidal ideation
   - suicide prediction

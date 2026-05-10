@@ -1,0 +1,511 @@
+{
+  "data_source": "https://588738577887-baselight-crawlers-prod-ue1-datasets.s3.us-east-1.amazonaws.com/iceberg_catalog/samhsa-bltc58ad2a81b9da05838ae665ebc809396dbe8538fa9fd6abf5a09667bd6cab0b1/nsduh_nsduh_2024/data/data_v2026-04-12_25f5d582.parquet",
+  "dictionary_source": "https://588738577887-baselight-crawlers-prod-ue1-datasets.s3.us-east-1.amazonaws.com/iceberg_catalog/samhsa-bltc58ad2a81b9da05838ae665ebc809396dbe8538fa9fd6abf5a09667bd6cab0b1/nsduh_nsduh_2024/data_dictionary/data_dictionary_v2026-03-11_bb75438a.parquet",
+  "source_columns": {
+    "outcome": "irsuicthnk",
+    "k6_score": "ksslr6max",
+    "employment": "wrkstatwk2",
+    "work_hours": "wrkdhrswk2",
+    "sex": "irsex",
+    "age": "catage",
+    "marital": "irmarit",
+    "military": "milstat",
+    "drug_use": "illyr",
+    "mental_health_tx": "mhtrtpy2",
+    "stratum": "vestr_c",
+    "psu": "verep",
+    "race": "newrace2",
+    "weight": "analwt2_c",
+    "sexual_orientation": "not_available_in_2024_public_use_file"
+  },
+  "raw_rows": 58633,
+  "employed_rows": 20781,
+  "employed_rows_with_valid_outcome": 20588,
+  "metrics": {
+    "n": 20588,
+    "positives": 1292,
+    "prevalence": 0.06275500291431903,
+    "auc": 0.8296844996508683,
+    "auprc": 0.30430184543249783,
+    "brier": 0.05125843170310194,
+    "mean_probability": 0.07950671536517062,
+    "threshold_0.17": {
+      "threshold": 0.17,
+      "sensitivity": 0.7205882352941176,
+      "specificity": 0.8279436152570481,
+      "ppv": 0.21900729240178782,
+      "npv": 0.9779029197527086,
+      "tp": 931,
+      "fp": 3320,
+      "fn": 361,
+      "tn": 15976,
+      "flag_rate": 0.2064795026228871
+    },
+    "calibration": {
+      "intercept": -0.3416555855905652,
+      "slope": 0.9716162659142806
+    },
+    "weighted_prevalence": 0.04994895215350339,
+    "weighted_flag_rate_at_default_threshold": 0.1595984902863297
+  },
+  "threshold_table": [
+    {
+      "threshold": 0.05,
+      "sensitivity": 0.8335913312693498,
+      "specificity": 0.6961546434494196,
+      "ppv": 0.15518731988472623,
+      "npv": 0.984246776084408,
+      "tp": 1077,
+      "fp": 5863,
+      "fn": 215,
+      "tn": 13433,
+      "flag_rate": 0.3370895667379056
+    },
+    {
+      "threshold": 0.1,
+      "sensitivity": 0.791795665634675,
+      "specificity": 0.7641998341625207,
+      "ppv": 0.18356361026377177,
+      "npv": 0.982084582084582,
+      "tp": 1023,
+      "fp": 4550,
+      "fn": 269,
+      "tn": 14746,
+      "flag_rate": 0.27069166504760056
+    },
+    {
+      "threshold": 0.15,
+      "sensitivity": 0.7422600619195047,
+      "specificity": 0.8090796019900498,
+      "ppv": 0.2065474908464355,
+      "npv": 0.9791157102539981,
+      "tp": 959,
+      "fp": 3684,
+      "fn": 333,
+      "tn": 15612,
+      "flag_rate": 0.225519720225374
+    },
+    {
+      "threshold": 0.17,
+      "sensitivity": 0.7205882352941176,
+      "specificity": 0.8279436152570481,
+      "ppv": 0.21900729240178782,
+      "npv": 0.9779029197527086,
+      "tp": 931,
+      "fp": 3320,
+      "fn": 361,
+      "tn": 15976,
+      "flag_rate": 0.2064795026228871
+    },
+    {
+      "threshold": 0.2,
+      "sensitivity": 0.6656346749226006,
+      "specificity": 0.8560841625207297,
+      "ppv": 0.23645861974154522,
+      "npv": 0.97451477788921,
+      "tp": 860,
+      "fp": 2777,
+      "fn": 432,
+      "tn": 16519,
+      "flag_rate": 0.17665630464348164
+    },
+    {
+      "threshold": 0.3,
+      "sensitivity": 0.3684210526315789,
+      "specificity": 0.9567267827529021,
+      "ppv": 0.36308161708619374,
+      "npv": 0.9576697618924106,
+      "tp": 476,
+      "fp": 835,
+      "fn": 816,
+      "tn": 18461,
+      "flag_rate": 0.06367787060423548
+    }
+  ],
+  "subgroups": {
+    "male": [
+      {
+        "value": "0",
+        "n": 10156,
+        "positives": 698,
+        "prevalence": 0.06872784560850728,
+        "auc": 0.8270578385757331,
+        "auprc": 0.29693013413328995,
+        "brier": 0.05604509630495087,
+        "mean_probability": 0.08524044176210696,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.7306590257879656,
+          "specificity": 0.8077817720448298,
+          "ppv": 0.2190721649484536,
+          "npv": 0.9759836484414921,
+          "tp": 510,
+          "fp": 1818,
+          "fn": 188,
+          "tn": 7640,
+          "flag_rate": 0.22922410397794407
+        },
+        "calibration": {
+          "intercept": -0.30741038258827513,
+          "slope": 0.976022488394854
+        },
+        "weighted_prevalence": 0.05518965441520756,
+        "weighted_flag_rate_at_default_threshold": 0.1808328328654194
+      },
+      {
+        "value": "1",
+        "n": 10432,
+        "positives": 594,
+        "prevalence": 0.05694018404907975,
+        "auc": 0.8302588636243851,
+        "auprc": 0.3132218106404373,
+        "brier": 0.046598408150918494,
+        "mean_probability": 0.07392468648410416,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.7087542087542088,
+          "specificity": 0.847326692417158,
+          "ppv": 0.218928757150286,
+          "npv": 0.979668586202844,
+          "tp": 421,
+          "fp": 1502,
+          "fn": 173,
+          "tn": 8336,
+          "flag_rate": 0.1843366564417178
+        },
+        "calibration": {
+          "intercept": -0.382157950138654,
+          "slope": 0.9660187930825289
+        },
+        "weighted_prevalence": 0.04570477720836645,
+        "weighted_flag_rate_at_default_threshold": 0.14240188947784924
+      }
+    ],
+    "age": [
+      {
+        "value": "2",
+        "n": 4976,
+        "positives": 579,
+        "prevalence": 0.11635852090032155,
+        "auc": 0.8350142957417582,
+        "auprc": 0.4082326810069516,
+        "brier": 0.08395451365785385,
+        "mean_probability": 0.1165057877370899,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.8221070811744386,
+          "specificity": 0.7329997725722083,
+          "ppv": 0.2884848484848485,
+          "npv": 0.9690318701142514,
+          "tp": 476,
+          "fp": 1174,
+          "fn": 103,
+          "tn": 3223,
+          "flag_rate": 0.3315916398713826
+        },
+        "calibration": {
+          "intercept": -0.012979321686953113,
+          "slope": 0.9918834565082992
+        },
+        "weighted_prevalence": 0.11148975512864023,
+        "weighted_flag_rate_at_default_threshold": 0.33014329790414215
+      },
+      {
+        "value": "3",
+        "n": 5322,
+        "positives": 363,
+        "prevalence": 0.06820744081172492,
+        "auc": 0.8167566330410745,
+        "auprc": 0.2674719001204566,
+        "brier": 0.05713515835024377,
+        "mean_probability": 0.0874391603584475,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.7079889807162535,
+          "specificity": 0.7979431336963098,
+          "ppv": 0.20413026211278792,
+          "npv": 0.9739109032734433,
+          "tp": 257,
+          "fp": 1002,
+          "fn": 106,
+          "tn": 3957,
+          "flag_rate": 0.236565201052236
+        },
+        "calibration": {
+          "intercept": -0.37552646922221056,
+          "slope": 0.9579897251820224
+        },
+        "weighted_prevalence": 0.07613401916715072,
+        "weighted_flag_rate_at_default_threshold": 0.2454113464152057
+      },
+      {
+        "value": "4",
+        "n": 10290,
+        "positives": 350,
+        "prevalence": 0.034013605442176874,
+        "auc": 0.7857388617418798,
+        "auprc": 0.16839359769376508,
+        "brier": 0.0324079318952366,
+        "mean_probability": 0.05751217149958369,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.5657142857142857,
+          "specificity": 0.8849094567404426,
+          "ppv": 0.14754098360655737,
+          "npv": 0.9830129637907913,
+          "tp": 198,
+          "fp": 1144,
+          "fn": 152,
+          "tn": 8796,
+          "flag_rate": 0.1304178814382896
+        },
+        "calibration": {
+          "intercept": -0.9356234486167904,
+          "slope": 0.8409940457392815
+        },
+        "weighted_prevalence": 0.030988819622810956,
+        "weighted_flag_rate_at_default_threshold": 0.10276340633106862
+      }
+    ],
+    "lgbtq": [],
+    "veteran": [
+      {
+        "value": "0",
+        "n": 19686,
+        "positives": 1245,
+        "prevalence": 0.0632429137458092,
+        "auc": 0.8284951965554317,
+        "auprc": 0.30518530387756626,
+        "brier": 0.051720712147705725,
+        "mean_probability": 0.08050157121413236,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.7228915662650602,
+          "specificity": 0.8241960848110189,
+          "ppv": 0.2172863351038146,
+          "npv": 0.9778049408131755,
+          "tp": 900,
+          "fp": 3242,
+          "fn": 345,
+          "tn": 15199,
+          "flag_rate": 0.21040333231738292
+        },
+        "calibration": {
+          "intercept": -0.3617214593137325,
+          "slope": 0.9633000650609289
+        },
+        "weighted_prevalence": 0.04948638797136068,
+        "weighted_flag_rate_at_default_threshold": 0.16322524689270115
+      },
+      {
+        "value": "1",
+        "n": 889,
+        "positives": 47,
+        "prevalence": 0.052868391451068614,
+        "auc": 0.86832263607419,
+        "auprc": 0.3229556186532312,
+        "brier": 0.04166042300157485,
+        "mean_probability": 0.05794917889111638,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.6595744680851063,
+          "specificity": 0.9085510688836105,
+          "ppv": 0.28703703703703703,
+          "npv": 0.9795134443021767,
+          "tp": 31,
+          "fp": 77,
+          "fn": 16,
+          "tn": 765,
+          "flag_rate": 0.12148481439820022
+        },
+        "calibration": {
+          "intercept": 0.34206436063868634,
+          "slope": 1.2367557500248698
+        },
+        "weighted_prevalence": 0.05790283361248846,
+        "weighted_flag_rate_at_default_threshold": 0.10207957951032348
+      }
+    ],
+    "race": [
+      {
+        "value": "1",
+        "n": 12602,
+        "positives": 777,
+        "prevalence": 0.06165687986033963,
+        "auc": 0.848333999961907,
+        "auprc": 0.3197236693435178,
+        "brier": 0.050338228188632345,
+        "mean_probability": 0.08342409465903508,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.752895752895753,
+          "specificity": 0.8164059196617336,
+          "ppv": 0.21226415094339623,
+          "npv": 0.9804996953077392,
+          "tp": 585,
+          "fp": 2171,
+          "fn": 192,
+          "tn": 9654,
+          "flag_rate": 0.21869544516743375
+        },
+        "calibration": {
+          "intercept": -0.2534177250408046,
+          "slope": 1.0775740924770443
+        },
+        "weighted_prevalence": 0.05108067421301748,
+        "weighted_flag_rate_at_default_threshold": 0.17056213709313647
+      },
+      {
+        "value": "2",
+        "n": 2145,
+        "positives": 120,
+        "prevalence": 0.055944055944055944,
+        "auc": 0.7762736625514401,
+        "auprc": 0.24783580077236825,
+        "brier": 0.04737757911220919,
+        "mean_probability": 0.06645837915432637,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.6583333333333333,
+          "specificity": 0.8622222222222222,
+          "ppv": 0.2206703910614525,
+          "npv": 0.9770565193060996,
+          "tp": 79,
+          "fp": 279,
+          "fn": 41,
+          "tn": 1746,
+          "flag_rate": 0.1668997668997669
+        },
+        "calibration": {
+          "intercept": -0.566153702867265,
+          "slope": 0.8151786460030066
+        },
+        "weighted_prevalence": 0.050730251285452374,
+        "weighted_flag_rate_at_default_threshold": 0.1535950570979241
+      },
+      {
+        "value": "3",
+        "n": 220,
+        "positives": 15,
+        "prevalence": 0.06818181818181818,
+        "auc": 0.8219512195121951,
+        "auprc": 0.3115508543960304,
+        "brier": 0.05542911669965734,
+        "mean_probability": 0.08276272396768479,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.6666666666666666,
+          "specificity": 0.8195121951219512,
+          "ppv": 0.2127659574468085,
+          "npv": 0.9710982658959537,
+          "tp": 10,
+          "fp": 37,
+          "fn": 5,
+          "tn": 168,
+          "flag_rate": 0.21363636363636362
+        },
+        "calibration": {
+          "intercept": -0.46184169660809715,
+          "slope": 0.8698087908993464
+        },
+        "weighted_prevalence": 0.02656628264661137,
+        "weighted_flag_rate_at_default_threshold": 0.17915729177069517
+      },
+      {
+        "value": "5",
+        "n": 1015,
+        "positives": 52,
+        "prevalence": 0.05123152709359606,
+        "auc": 0.7176691429027877,
+        "auprc": 0.1887558573009359,
+        "brier": 0.04761885625523455,
+        "mean_probability": 0.06371391578356413,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.4807692307692308,
+          "specificity": 0.8681204569055037,
+          "ppv": 0.16447368421052633,
+          "npv": 0.9687137891077636,
+          "tp": 25,
+          "fp": 127,
+          "fn": 27,
+          "tn": 836,
+          "flag_rate": 0.1497536945812808
+        },
+        "calibration": {
+          "intercept": -1.1077794956175453,
+          "slope": 0.6053284178222352
+        },
+        "weighted_prevalence": 0.0375157387307929,
+        "weighted_flag_rate_at_default_threshold": 0.10316266290981169
+      },
+      {
+        "value": "6",
+        "n": 827,
+        "positives": 85,
+        "prevalence": 0.10278113663845223,
+        "auc": 0.8521959727287141,
+        "auprc": 0.4130267494024892,
+        "brier": 0.07440658536693924,
+        "mean_probability": 0.10260265358479224,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.7764705882352941,
+          "specificity": 0.7816711590296496,
+          "ppv": 0.2894736842105263,
+          "npv": 0.9682804674457429,
+          "tp": 66,
+          "fp": 162,
+          "fn": 19,
+          "tn": 580,
+          "flag_rate": 0.2756952841596131
+        },
+        "calibration": {
+          "intercept": 0.11134006327090216,
+          "slope": 1.0749710590113082
+        },
+        "weighted_prevalence": 0.09197352659582994,
+        "weighted_flag_rate_at_default_threshold": 0.25486049359630075
+      },
+      {
+        "value": "7",
+        "n": 3689,
+        "positives": 241,
+        "prevalence": 0.0653293575494714,
+        "auc": 0.8135018436329678,
+        "auprc": 0.287104220638017,
+        "brier": 0.05285017554096579,
+        "mean_probability": 0.07324524017407474,
+        "threshold_0.17": {
+          "threshold": 0.17,
+          "sensitivity": 0.6846473029045643,
+          "specificity": 0.8454176334106729,
+          "ppv": 0.23638968481375358,
+          "npv": 0.9745904379806085,
+          "tp": 165,
+          "fp": 533,
+          "fn": 76,
+          "tn": 2915,
+          "flag_rate": 0.18921116833830307
+        },
+        "calibration": {
+          "intercept": -0.33911384911951215,
+          "slope": 0.8906329274146327
+        },
+        "weighted_prevalence": 0.04639084612040581,
+        "weighted_flag_rate_at_default_threshold": 0.1377504798286396
+      }
+    ]
+  },
+  "missingness": {
+    "k6_score": 0.0,
+    "male": 0.0,
+    "age": 0.0,
+    "married": 0.0,
+    "lgbtq": 1.0,
+    "veteran": 0.0006314357878375753,
+    "drug_use": 0.0,
+    "mental_health_tx": 0.0,
+    "work_hours": 0.004614338449582281
+  }
+}

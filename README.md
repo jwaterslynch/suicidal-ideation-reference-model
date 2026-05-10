@@ -18,6 +18,7 @@ governance guidance.
 - A stable feature schema.
 - A Python API and command-line scorer for CSV files.
 - A model card, governance guidance, and local-validation checklist.
+- A reproduced NSDUH 2024 fresh-data validation workflow and report.
 - Synthetic example data for testing the interface.
 
 The model predicts probability of past-year suicidal ideation as operationalized
@@ -116,6 +117,9 @@ The artifact is a dictionary containing:
 - `metadata`: training sample, validation metrics, thresholds, and source
   provenance.
 
+Package version 0.1.2 is a validation-workflow release. The fitted model
+artifact remains the v0.1.1 artifact.
+
 ## Validation Snapshot
 
 The default reference model follows the paper's 2020 full-model specification:
@@ -124,7 +128,7 @@ and employed-adult filter. Version 0.1.1 additionally recodes extended NSDUH
 work-hours sentinel values (`985`, `989`, `994`, `997`, `998`, `999`) to
 missing before fitting.
 
-Packaged holdout validation:
+### Packaged 2020 Holdout
 
 | Metric | Value |
 |---|---:|
@@ -137,8 +141,45 @@ Packaged holdout validation:
 | Sensitivity at threshold 0.17 | 0.529 |
 | Specificity at threshold 0.17 | 0.928 |
 
-These metrics are evidence about the source context, not a guarantee of
-performance in other populations or organizations.
+### Fresh NSDUH 2024 Validation
+
+Version 0.1.2 adds a reproducible fresh-data validation on the 2024 NSDUH
+public-use file. The workflow is in `validation/validate_nsduh_2024.py`, and
+the aggregate report is in `validation/results/nsduh_2024_validation_report.md`.
+The raw public-use parquet files are intentionally not committed.
+
+The 2024 validation was independently rerun from a fresh environment; the
+Markdown report reproduced byte-for-byte, with only negligible floating-point
+differences in JSON decimals.
+
+| Metric | Value |
+|---|---:|
+| Public-use respondents | 58,633 |
+| Employed respondents | 20,781 |
+| Analytic N with valid outcome | 20,588 |
+| Outcome prevalence | 6.28% |
+| Weighted outcome prevalence | 5.00% |
+| AUC | 0.830 |
+| AUPRC | 0.304 |
+| Brier score | 0.0513 |
+| Calibration intercept | -0.342 |
+| Calibration slope | 0.972 |
+| Threshold 0.17 sensitivity | 0.721 |
+| Threshold 0.17 specificity | 0.828 |
+| Threshold 0.17 PPV | 0.219 |
+| Threshold 0.17 flag rate | 20.65% |
+| Threshold 0.17 weighted flag rate | 15.96% |
+
+Important caveat: the 2024 public-use file used here does not expose the
+sexual-orientation variable used to construct `lgbtq`, so that feature is
+missing for every scored row and handled by the packaged median imputer. This
+is a partial-feature temporal validation, not evidence that every predictor
+transported cleanly.
+
+These metrics are evidence about NSDUH temporal transportability, not a
+guarantee of performance in other populations, countries, clinical settings, or
+organizations. The 0.17 threshold is not portable and is too aggressive for the
+2024 validation sample without local recalibration and governance review.
 
 ## Rebuild The Artifact
 
@@ -170,7 +211,7 @@ paper or working paper.
   author = {Waters-Lynch, Julian},
   year = {2026},
   url = {https://github.com/jwaterslynch/suicidal-ideation-reference-model},
-  version = {0.1.1}
+  version = {0.1.2}
 }
 ```
 

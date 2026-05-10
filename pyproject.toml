@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "suicidal-ideation-reference-model"
-version = "0.1.1"
+version = "0.1.2"
 description = "Open-source reference model for suicidal-ideation prediction and local validation."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -47,6 +47,10 @@ dev = [
   "build>=1.2",
   "pytest>=8",
   "ruff>=0.8",
+]
+validation = [
+  "duckdb>=1.1",
+  "pyarrow>=16",
 ]
 
 [tool.setuptools.packages.find]

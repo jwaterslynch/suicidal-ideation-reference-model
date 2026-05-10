@@ -27,6 +27,11 @@ holdout set. Do not treat that threshold as portable. Thresholds should be
 chosen locally based on prevalence, calibration, available support capacity,
 false-positive and false-negative harms, and governance review.
 
+In the NSDUH 2024 fresh-data validation, the packaged 0.17 threshold retained
+high sensitivity but flagged 20.65% of the unweighted analytic sample and
+15.96% of the weighted employed-adult population. Treat this as evidence that
+thresholds require local recalibration, not as an operational recommendation.
+
 ## Drift And Maintenance
 
 If used repeatedly, monitor:
